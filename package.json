@@ -1,0 +1,12 @@
+{
+  "name": "test",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "^4.13.4",
+    "pty.js": "^0.3.0",
+    "socket.io": "^1.4.6",
+    "socket.io-client": "^1.4.6",
+    "term.js": "0.0.7"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,36 @@
+<!doctype html>
+<title>term.js</title>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/term/term.js"></script>
+<script>
+;(function() {
+  window.onload = function() {
+    var socket = io.connect();
+    socket.on('connect', function() {
+      var term = new Terminal({
+        useStyle: true,
+        screenKeys: true,
+        cursorBlink: false,
+        cols: 160,
+        rows: 40
+      });
+
+      term.on('data', function(data) {
+        socket.emit('from_browser_data', data);
+      });
+
+      term.open(document.body);
+
+      socket.on('from_rasp_data', function(data) {
+        term.write(data);
+      });
+
+      socket.on('disconnect', function() {
+        term.destroy();
+      });
+      socket.emit('browser_connected');
+
+    });
+  };
+}).call(this);
+</script>
